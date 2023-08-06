@@ -1,0 +1,52 @@
+.wrapper {
+  position: relative;
+}
+.wrapper > input {
+  padding-left: 56px;
+  width: 342px;
+  height: 56px;
+  border-radius: 8px;
+  border: 2px solid #878787;
+  background: #FFF;
+  caret-color: #AD02E0;
+  color: #AD02E0;
+  font-size: 20px;
+  font-weight: 400;
+}
+.wrapper > input::-webkit-input-placeholder {
+  font-size: 20px;
+  font-weight: 400;
+}
+.wrapper > input::-moz-placeholder {
+  font-size: 20px;
+  font-weight: 400;
+}
+.wrapper > input:-ms-input-placeholder {
+  font-size: 20px;
+  font-weight: 400;
+}
+.wrapper > input::-ms-input-placeholder {
+  font-size: 20px;
+  font-weight: 400;
+}
+.wrapper > input::placeholder {
+  font-size: 20px;
+  font-weight: 400;
+}
+.wrapper > input:focus {
+  outline: none;
+  border: 2px solid #AD02E0;
+}
+.wrapper > img {
+  position: absolute;
+  top: 15px;
+  left: 16px;
+}
+
+.wrapper.focused > img {
+  display: none;
+}
+
+.wrapper.focused > input {
+  padding-left: 16px;
+}

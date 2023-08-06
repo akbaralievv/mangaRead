@@ -1,0 +1,83 @@
+.form
+    display: flex
+    flex-direction: column
+    gap: 30px
+    input
+        height: 52px
+        padding: 0px 10px
+        border-radius: 8px
+        border: 1px solid #000
+        padding-left: 10px
+        padding-right: 10px
+        color: black
+        font-family: Montserrat
+        font-size: 24px
+        font-style: normal
+        font-weight: 400
+        width: 500px
+        &::placeholder
+            color: #878787
+            font-family: Montserrat
+            font-size: 24px
+            font-style: normal
+            font-weight: 400
+    button
+        border: none
+        padding: 15px 0
+        border-radius: 8px
+        background: #AD02E0
+        font-family: Montserrat
+        font-size: 16px
+        font-weight: 400
+        text-transform: uppercase
+        color: white
+        width: 500px
+    label
+        display: flex
+        gap: 10px
+        align-items: center
+        height: 35px
+        color: #878787
+        font-family: Montserrat
+        font-size: 24px
+        font-weight: 400
+    input[type="checkbox"]
+        position: absolute
+        opacity: 0
+    span
+        height: 35px
+        display: flex
+        align-items: center
+
+    input[type="checkbox"] + span
+        position: relative
+        padding-left: 47px
+        cursor: pointer
+
+    input[type="checkbox"] + span::before
+        content: ""
+        position: absolute
+        left: 0
+        top: 0
+        width: 33px
+        height: 33px
+        border: 1px solid #AD02E0
+        border-radius: 5px
+
+    input[type="checkbox"]:checked + span::before
+        background-color: #AD02E0
+
+    input[type="checkbox"] + span::after
+        content: ""
+        position: absolute
+        left: 12px
+        top: 2px
+        width: 12px
+        height: 19px
+        border: solid #fff
+        border-width: 0 2px 2px 0
+        transform: rotate(45deg)
+        opacity: 0
+
+    input[type="checkbox"]:checked + span::after
+        opacity: 1

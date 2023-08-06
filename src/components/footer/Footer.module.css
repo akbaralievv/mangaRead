@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+.wrapper {
+  height: 402px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 30px 0px;
+  font-family: "Montserrat", sans-serif;
+}
+.wrapper .container {
+  width: 1240px;
+}
+.wrapper .container .inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.wrapper .container .inner .logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 4px;
+}
+.wrapper .container .inner .logo > img {
+  width: 132px;
+  height: 88px;
+}
+.wrapper .container .inner .logo .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 4px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.wrapper .container .inner .logo .title > span {
+  font-size: 24px;
+  font-weight: 500;
+}
+.wrapper .container .inner .logo .title > p {
+  font-size: 20px;
+  font-weight: 400;
+  color: #878787;
+}
+.wrapper .container .inner .links {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 32px;
+  font-family: Roboto, sans-serif;
+}
+.wrapper .container .inner .links > li img {
+  width: 24px;
+  height: 24px;
+}
+.wrapper .container .inner .links > li a {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.wrapper > hr {
+  border: none;
+  border: 1px solid #BBB;
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.wrapper .copyright {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 32px;
+  font-size: 14px;
+  font-weight: 400;
+  color: black;
+  font-family: Roboto, sans-serif;
+}
+.wrapper .copyright > ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  text-decoration-line: underline;
+}

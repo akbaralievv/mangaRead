@@ -1,0 +1,158 @@
+.content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 33px;
+  padding: 0 10px;
+}
+.content .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.content .title > p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 17px;
+  color: #878787;
+  cursor: pointer;
+}
+.content .types {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+.content .types > label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 35px;
+}
+.content .types > label input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+}
+.content .types > label span {
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.content .types > label input[type=checkbox] + span {
+  position: relative;
+  padding-left: 47px;
+  cursor: pointer;
+}
+.content .types > label input[type=checkbox] + span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 33px;
+  height: 33px;
+  border: 1px solid #2FE09B;
+  border-radius: 5px;
+}
+.content .types > label input[type=checkbox]:checked + span::before {
+  background-color: #2FE09B;
+}
+.content .types > label input[type=checkbox] + span::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 2px;
+  width: 12px;
+  height: 19px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  opacity: 0;
+}
+.content .types > label input[type=checkbox]:checked + span::after {
+  opacity: 1;
+}
+.content .years {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+.content .years > input {
+  border-radius: 8px;
+  border: 2px solid #2FE09B;
+  width: 168px;
+  height: 55px;
+  padding: 0px 15px;
+  color: #A5A5A5;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+.content .years > input::-webkit-input-placeholder {
+  color: #A5A5A5;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+.content .years > input::-moz-placeholder {
+  color: #A5A5A5;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+.content .years > input:-ms-input-placeholder {
+  color: #A5A5A5;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+.content .years > input::-ms-input-placeholder {
+  color: #A5A5A5;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+.content .years > input::placeholder {
+  color: #A5A5A5;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+.content .years > input:focus {
+  outline: none;
+  border: 2px solid #2FE09B;
+  caret-color: #2FE09B;
+}
