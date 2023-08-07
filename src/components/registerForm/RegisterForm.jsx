@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import style from './RegisterForm.module.css';
-import { postSignUp } from '../../redux/slices/SignUpSlice';
 import { useDispatch } from 'react-redux';
 
+import { postSignUp } from '../../redux/slices/SignUpSlice';
+
+import style from './RegisterForm.module.css';
+
 function RegisterForm() {
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     username: '',
     nickname: '',
@@ -11,12 +15,10 @@ function RegisterForm() {
     password: '',
   });
 
-  const dispatch = useDispatch();
-
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: type === 'file' ? files[0] : value,
     }));
   };
@@ -24,9 +26,11 @@ function RegisterForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
+
     for (const key in formData) {
       data.append(key, formData[key]);
     }
+
     dispatch(postSignUp(data));
   };
 
@@ -39,11 +43,11 @@ function RegisterForm() {
           className={!formData.image_file ? style.notPhoto : ''}
         />
         <input type="file" onChange={handleChange} name="image_file" style={{ display: 'none' }} />
-        выбрать
+        Выбрать
       </label>
       <input
         type="text"
-        placeholder="username"
+        placeholder="Username"
         name="username"
         minLength={10}
         maxLength={50}
@@ -51,21 +55,21 @@ function RegisterForm() {
       />
       <input
         type="text"
-        placeholder="nickname"
+        placeholder="Nickname"
         name="nickname"
         minLength={10}
         maxLength={60}
         onChange={handleChange}
       />
       <input
-        type="text"
-        placeholder="password"
+        type="password"
+        placeholder="Password"
         name="password"
         minLength={8}
         maxLength={40}
         onChange={handleChange}
       />
-      <button type="submit">регистрация</button>
+      <button type="submit">Регистрация</button>
     </form>
   );
 }

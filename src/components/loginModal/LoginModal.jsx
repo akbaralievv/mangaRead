@@ -1,23 +1,27 @@
-import style from './LoginModal.module.css';
-import closeIcon from '../../assets/icons/close.svg';
+import { useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setActive, setOpen, setVisible } from '../../redux/slices/openModalSlice';
 import AuthForm from '../authForm/AuthForm';
 import RegisterForm from '../registerForm/RegisterForm';
-import { setActive, setOpen } from '../../redux/slices/openModalSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRef, useEffect } from 'react';
+
+import closeIcon from '../../assets/icons/close.svg';
+import styles from './LoginModal.module.css';
 
 function LoginModal() {
-  const { active } = useSelector((state) => state.openModalSlice);
   const dispatch = useDispatch();
-  const handleClick = (isTrue) => {
-    dispatch(setActive(isTrue));
-  };
-  const closeModal = () => {
-    document.body.style.overflow = '';
-    dispatch(setOpen(false));
+  const { active, visible } = useSelector((state) => state.openModalSlice);
+  const modalRef = useRef();
+
+  const handleClick = (isActive) => {
+    dispatch(setActive(isActive));
   };
 
-  const modalRef = useRef();
+  const closeModal = () => {
+    document.body.style.overflow = '';
+    dispatch(setVisible(false));
+    dispatch(setOpen(false));
+  };
 
   const handleClickOutside = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -34,18 +38,18 @@ function LoginModal() {
   }, []);
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.inner} ref={modalRef}>
-        <div className={style.content}>
-          <div className={style.close}>
+    <div className={styles.wrapper}>
+      <div className={`${styles.inner} ${visible ? styles.visible : styles.hidden}`} ref={modalRef}>
+        <div className={styles.content}>
+          <div className={styles.close}>
             <img src={closeIcon} alt="close" onClick={closeModal} />
           </div>
           <nav>
-            <div className={style.nav}>
-              <a className={`${active ? style.activeAuth : ''}`} onClick={() => handleClick(true)}>
+            <div className={styles.nav}>
+              <a className={active ? styles.activeAuth : ''} onClick={() => handleClick(true)}>
                 Войти
               </a>
-              <a className={`${!active ? style.activeReg : ''}`} onClick={() => handleClick(false)}>
+              <a className={!active ? styles.activeReg : ''} onClick={() => handleClick(false)}>
                 Регистрация
               </a>
             </div>

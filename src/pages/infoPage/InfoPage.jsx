@@ -1,59 +1,63 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { getInfoManga } from '../../redux/slices/InfoMangaSlice';
-import React from 'react';
 
-import style from './InfoPage.module.css';
+import { getInfoManga } from '../../redux/slices/InfoMangaSlice';
 import { getGenre } from '../../redux/slices/GenreSlice';
-import arrow from '../../assets/icons/arrowBack.svg';
 import { getComment } from '../../redux/slices/GetCommentSLice';
+import { getUsername } from '../../helpers/token';
+import { setOpen, setVisible } from '../../redux/slices/openModalSlice';
+
+import LoginModal from '../../components/loginModal/LoginModal';
 import CommentModal from '../../components/commentModal/CommentModal';
 import Pagination from '../../components/pagination/Pagination';
-import LoginModal from '../../components/loginModal/LoginModal';
-import { getUsername } from '../../helpers/token';
-import { setOpen } from '../../redux/slices/openModalSlice';
+
+import style from './InfoPage.module.css';
+import arrow from '../../assets/icons/arrowBack.svg';
 
 function InfoPage() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
   const { open } = useSelector((state) => state.openModalSlice);
   const { data } = useSelector((state) => state.InfoMangaSlice);
   const { data: genre } = useSelector((state) => state.GenreSlice);
-  const { data: comments } = useSelector((state) => state.GetCommentSLice);
-  const { data: addComment } = useSelector((state) => state.PostCommentSlice);
+  const { data: comments, success: addCommentSuccess } = useSelector(
+    (state) => state.GetCommentSLice,
+  );
+
   const [page, setPage] = useState({
     start: 0,
     end: 3,
   });
+
   const [openModal, setOpenModal] = useState(false);
-  const { id } = useParams();
-  const dispatch = useDispatch();
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     dispatch(getInfoManga({ id }));
     dispatch(getGenre());
-  }, [dispatch, id]);
-
-  useEffect(() => {
     dispatch(getComment(id));
-  }, [dispatch, addComment, id]);
+  }, [dispatch, id, addCommentSuccess]);
 
   const handleOpenModal = () => {
     const user = getUsername() || '{}';
     const username = JSON.parse(user);
     if (username.username) {
       setOpenModal(true);
+      setIsVisible(true);
       document.body.style.overflow = 'hidden';
       dispatch(setOpen(false));
     } else {
+      dispatch(setVisible(true));
       dispatch(setOpen(true));
     }
   };
 
-  const handleChangePaginate = (event, page) => {
+  const handleChangePaginate = (event, newPage) => {
     const itemsPerPage = 3;
-    const newStart = (page - 1) * itemsPerPage;
+    const newStart = (newPage - 1) * itemsPerPage;
     const newEnd = newStart + itemsPerPage;
-
     setPage({ start: newStart, end: newEnd });
   };
 
@@ -64,7 +68,14 @@ function InfoPage() {
     <main className={style.wrapper}>
       <div className={style.container}>
         {open && <LoginModal />}
-        {openModal && <CommentModal id={data.id} setOpenModal={setOpenModal} />}
+        {openModal && (
+          <CommentModal
+            id={data.id}
+            setOpenModal={setOpenModal}
+            visible={isVisible}
+            setVisible={setIsVisible}
+          />
+        )}
         <Link to={'/'}>
           <img src={arrow} alt="arrow" /> Назад
         </Link>
@@ -83,7 +94,7 @@ function InfoPage() {
             </p>
             <p>
               Жанр:
-              <span key={genre.id}>
+              <span>
                 {genres.map((genre, index) => (
                   <React.Fragment key={genre.id}>
                     {' '}

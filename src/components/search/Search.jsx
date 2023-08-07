@@ -1,39 +1,34 @@
 import { useState, useCallback } from 'react';
-import debounce from 'lodash.debounce';
-import style from './Search.module.css';
-import search from '../../assets/icons/search.svg';
-import { setSearchValue } from '../../redux/slices/setSearchSlice';
 import { useDispatch } from 'react-redux';
+import debounce from 'lodash.debounce';
+
+import style from './Search.module.css';
+import { setSearchValue } from '../../redux/slices/setSearchSlice';
+
+import searchIcon from '../../assets/icons/search.svg';
 
 function Search() {
   const [isFocused, setIsFocused] = useState(false);
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
 
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
 
   const updateSearchValue = useCallback(
-    debounce((str) => {
-      dispatch(setSearchValue(str));
-    }, 1000),
-    [],
+    debounce((str) => dispatch(setSearchValue(str)), 1000),
+    [dispatch],
   );
 
   const handleChange = (event) => {
-    const value = event.target.value;
-    setValue(value);
-    updateSearchValue(value);
+    const newValue = event.target.value;
+    setValue(newValue);
+    updateSearchValue(newValue);
   };
 
   return (
-    <div className={`${style.wrapper} ${isFocused ? style.focused : ''}`}>
-      {isFocused ? '' : <img src={search} alt="search" />}
+    <div className={`${style.wrapper} ${isFocused && style.focused}`}>
+      {!isFocused && <img src={searchIcon} alt="search" />}
       <input
         type="text"
         placeholder="Placeholder"

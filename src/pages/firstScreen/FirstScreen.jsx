@@ -5,13 +5,15 @@ import Cards from '../../components/cards/Cards';
 import Filter from '../../components/filter/Filter';
 import LoginModal from '../../components/loginModal/LoginModal';
 import Pagination from '../../components/pagination/Pagination';
-import style from './FirstScreen.module.css';
 import { setCurrentPage } from '../../redux/slices/currentPageSlice';
+
+import style from './FirstScreen.module.css';
 
 function FirstScreen() {
   const { open } = useSelector((state) => state.openModalSlice);
   const { data } = useSelector((state) => state.MangaSlice);
   const dispatch = useDispatch();
+
   const handleChange = (event, page) => {
     dispatch(setCurrentPage(page));
   };

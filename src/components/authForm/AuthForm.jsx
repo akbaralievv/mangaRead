@@ -9,15 +9,14 @@ function AuthForm() {
     username: '',
     password: '',
   });
-  const { rememberMe } = useSelector((state) => state.SignInSlice);
 
+  const { rememberMe } = useSelector((state) => state.SignInSlice);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const rememberedUser = localStorage.getItem('rememberedUser');
     if (rememberedUser) {
-      const parsedUser = JSON.parse(rememberedUser);
-      setFormData(parsedUser);
+      setFormData(JSON.parse(rememberedUser));
     }
   }, []);
 
@@ -27,7 +26,7 @@ function AuthForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -48,16 +47,16 @@ function AuthForm() {
         onChange={handleChange}
         minLength={10}
         maxLength={50}
-        value={formData.username || ''}
+        value={formData.username}
       />
       <input
-        type="text"
+        type="password"
         placeholder="Password"
         name="password"
         onChange={handleChange}
         minLength={8}
         maxLength={40}
-        value={formData.password || ''}
+        value={formData.password}
       />
       <label>
         <input type="checkbox" checked={rememberMe} onChange={handleRememberMeChange} />

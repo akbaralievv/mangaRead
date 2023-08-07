@@ -1,17 +1,15 @@
 import { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { FilterContext } from '../filter/Filter';
+import { getGenre, clearData } from '../../redux/slices/GenreSlice';
+
 import style from './GenresFilter.module.css';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { getGenre } from '../../redux/slices/GenreSlice';
-import { clearData } from '../../redux/slices/GenreSlice';
 
 function GenresFilter({ handleChange, selectedGenres }) {
   const { setActive } = useContext(FilterContext);
-  const { data } = useSelector((state) => state.GenreSlice);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,38 +19,38 @@ function GenresFilter({ handleChange, selectedGenres }) {
     };
   }, [dispatch]);
 
-  const handleClick = () => {
-    setActive(false);
-  };
-
   const handleGenresChange = (event) => {
     const { name, checked } = event.target;
-    if (checked) {
-      handleChange([...selectedGenres, name]);
-    } else {
-      handleChange(selectedGenres?.filter((type) => type !== name));
-    }
+    const updatedGenres = checked
+      ? [...selectedGenres, name]
+      : selectedGenres.filter((type) => type !== name);
+    handleChange(updatedGenres);
   };
+
+  const { data } = useSelector((state) => state.GenreSlice);
 
   return (
     <div className={style.content}>
-      <p onClick={handleClick} className={style.title}>
+      <p onClick={() => setActive(false)} className={style.title}>
         <img src={arrowLeft} alt="arrow" />
         <span>Назад</span>
       </p>
       <div className={style.genres}>
         <h3>Жанры</h3>
-        {data?.map((genre) => (
-          <label key={genre.id}>
-            <input
-              type="checkbox"
-              name={genre.title}
-              onChange={handleGenresChange}
-              checked={selectedGenres.includes(genre.title)}
-            />
-            <span>{genre.title}</span>
-          </label>
-        ))}
+        {data?.map((genre) => {
+          const isChecked = selectedGenres.includes(genre.title);
+          return (
+            <label key={genre.id}>
+              <input
+                type="checkbox"
+                name={genre.title}
+                onChange={handleGenresChange}
+                checked={isChecked}
+              />
+              <span>{genre.title}</span>
+            </label>
+          );
+        })}
       </div>
     </div>
   );

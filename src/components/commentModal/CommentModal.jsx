@@ -1,34 +1,33 @@
-import style from './CommentModal.module.css';
-import { getUsername } from '../../helpers/token';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { postComment } from '../../redux/slices/PostCommentSlice';
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
-function CommentModal({ id, setOpenModal }) {
-  const user = getUsername() || '';
-  const username = JSON.parse(user);
-  const [value, setValue] = useState('');
+import { postComment } from '../../redux/slices/PostCommentSlice';
+import { getUsername } from '../../helpers/token';
+
+import styles from './CommentModal.module.css';
+
+function CommentModal({ id, setOpenModal, setVisible, visible }) {
   const dispatch = useDispatch();
-  const hanldeChange = (e) => {
+  const user = getUsername();
+  const username = JSON.parse(user) || {};
+  const [value, setValue] = useState('');
+
+  const handleChange = (e) => {
     setValue(e.target.value);
   };
-  const hanldeSubmit = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postComment({ id, value }));
-  };
-
-  CommentModal.propTypes = {
-    id: PropTypes.number,
-    setOpenModal: PropTypes.func,
   };
 
   const modalRef = useRef();
 
   const closeModal = () => {
     document.body.style.overflow = '';
-    setOpenModal && setOpenModal(false);
+    if (setOpenModal) setOpenModal(false);
+    setVisible(false);
   };
 
   const handleClickOutside = (event) => {
@@ -39,24 +38,23 @@ function CommentModal({ id, setOpenModal }) {
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
-
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.inner} ref={modalRef}>
-        <div className={style.content}>
-          <div className={style.title}>
+    <div className={styles.wrapper}>
+      <div className={`${styles.inner} ${visible ? styles.visible : styles.hidden}`} ref={modalRef}>
+        <div className={styles.content}>
+          <div className={styles.title}>
             <div>
               <img src={username.image_file} alt="" />
             </div>
             <h3>{username.username}</h3>
           </div>
-          <form onSubmit={hanldeSubmit}>
-            <input type="text" placeholder="Добавьте комментарий" onChange={hanldeChange} />
+          <form onSubmit={handleSubmit}>
+            <input type="text" placeholder="Добавьте комментарий" onChange={handleChange} />
             <button type="submit">Добавить</button>
           </form>
         </div>
@@ -64,5 +62,12 @@ function CommentModal({ id, setOpenModal }) {
     </div>
   );
 }
+
+CommentModal.propTypes = {
+  id: PropTypes.number,
+  setOpenModal: PropTypes.func,
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+};
 
 export default CommentModal;

@@ -68,6 +68,7 @@
   text-transform: uppercase;
   color: white;
   width: 500px;
+  cursor: pointer;
 }
 .form label {
   display: -webkit-box;

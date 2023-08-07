@@ -1,36 +1,38 @@
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Search from '../search/Search';
+import User from '../user/User';
+import { setOpen, setActive, setVisible } from '../../redux/slices/openModalSlice';
+import { getUsers } from '../../redux/slices/GetUserSlice';
+import { getUsername, setUser } from '../../helpers/token';
+
 import style from './Header.module.css';
 import logo from '../../assets/icons/logo.svg';
-import { setOpen, setActive } from '../../redux/slices/openModalSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import User from '../user/User';
-import { getUsername, setUser } from '../../helpers/token';
-import { useEffect, useState } from 'react';
-import { getUsers } from '../../redux/slices/GetUserSlice';
 
 function Header() {
   const { username } = useSelector((state) => state.SignInSlice);
   const { success } = useSelector((state) => state.PostLogoutSlice);
   const { data: users } = useSelector((state) => state.GetUserSlice);
   const [userIsTrue, setUserIsTrue] = useState(false);
-  const [hasFetchedUsers, setHasFetchedUsers] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (username && !hasFetchedUsers) {
+    if (username) {
       dispatch(getUsers());
-      setHasFetchedUsers(true);
     }
-  }, [dispatch, username, hasFetchedUsers]);
+  }, [dispatch, username]);
 
   useEffect(() => {
     if (users.length > 0 && username) {
-      const user = users.filter((user) => user.username === username);
-      setUser(JSON.stringify(user[0]));
-      const getUser = JSON.parse(getUsername());
-      setUserIsTrue(getUser);
+      const user = users.find((user) => user.username === username);
+
+      if (user) {
+        setUser(JSON.stringify(user));
+        const getUser = JSON.parse(getUsername());
+        setUserIsTrue(getUser);
+      }
     }
   }, [users, username]);
 
@@ -39,15 +41,11 @@ function Header() {
     setUserIsTrue(getUser);
   }, [success, username]);
 
-  const handleClickAuth = () => {
+  const handleClick = (active) => {
     document.body.style.overflow = 'hidden';
     dispatch(setOpen(true));
-    dispatch(setActive(true));
-  };
-  const handleClickRegister = () => {
-    document.body.style.overflow = 'hidden';
-    dispatch(setOpen(true));
-    dispatch(setActive(false));
+    dispatch(setVisible(true));
+    dispatch(setActive(active));
   };
 
   return (
@@ -66,8 +64,8 @@ function Header() {
             <User username={userIsTrue} />
           ) : (
             <div className={style.buttons}>
-              <NavLink onClick={handleClickAuth}>Войти</NavLink>
-              <NavLink onClick={handleClickRegister}>Регистрация</NavLink>
+              <NavLink onClick={() => handleClick(true)}>Войти</NavLink>
+              <NavLink onClick={() => handleClick(false)}>Регистрация</NavLink>
             </div>
           )}
         </nav>

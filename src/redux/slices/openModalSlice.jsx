@@ -5,6 +5,7 @@ const openModalSlice = createSlice({
   initialState: {
     open: false,
     active: false,
+    visible: false,
   },
   reducers: {
     setOpen: (state, action) => {
@@ -13,8 +14,11 @@ const openModalSlice = createSlice({
     setActive: (state, action) => {
       state.active = action.payload;
     },
+    setVisible: (state, action) => {
+      state.visible = action.payload;
+    },
   },
 });
 
-export const { setOpen, setActive } = openModalSlice.actions;
+export const { setOpen, setActive, setVisible } = openModalSlice.actions;
 export default openModalSlice.reducer;

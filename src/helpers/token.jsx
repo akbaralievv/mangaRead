@@ -1,11 +1,23 @@
-export const getAccessToken = () => localStorage.getItem('access_token');
-export const setAccessToken = (token) => localStorage.setItem('access_token', token);
-export const removeAccessToken = () => localStorage.removeItem('access_token');
+const tokenLocalStorage = {
+  get: (key) => localStorage.getItem(key),
+  set: (key, value) => localStorage.setItem(key, value),
+  remove: (key) => localStorage.removeItem(key),
+};
 
-export const getRefreshToken = () => localStorage.getItem('refresh_token');
-export const setRefreshToken = (token) => localStorage.setItem('refresh_token', token);
-export const removeRefreshToken = () => localStorage.removeItem('refresh_token');
+const userLocalStorage = {
+  get: () => localStorage.getItem('user'),
+  set: (user) => localStorage.setItem('user', user),
+  remove: () => localStorage.removeItem('user'),
+};
 
-export const getUsername = () => localStorage.getItem('user');
-export const setUser = (user) => localStorage.setItem('user', user);
-export const removeUser = () => localStorage.removeItem('user');
+export const getAccessToken = () => tokenLocalStorage.get('access_token');
+export const setAccessToken = (token) => tokenLocalStorage.set('access_token', token);
+export const removeAccessToken = () => tokenLocalStorage.remove('access_token');
+
+export const getRefreshToken = () => tokenLocalStorage.get('refresh_token');
+export const setRefreshToken = (token) => tokenLocalStorage.set('refresh_token', token);
+export const removeRefreshToken = () => tokenLocalStorage.remove('refresh_token');
+
+export const getUsername = () => userLocalStorage.get();
+export const setUser = (username) => userLocalStorage.set(username);
+export const removeUser = () => userLocalStorage.remove();

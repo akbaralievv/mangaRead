@@ -4,7 +4,7 @@ import { getAccessToken, getRefreshToken } from './token';
 
 const urlRefresh = links.REFRESH_TOKEN;
 
-const refreshToken = async function refreshToken() {
+const refreshToken = async () => {
   try {
     const response = await axios.post(urlRefresh, {
       refresh_token: getRefreshToken(),
@@ -16,40 +16,38 @@ const refreshToken = async function refreshToken() {
   }
 };
 
-export const api = axios.create({
-  baseURL: links.BASE_URL,
-});
+const createApiInstance = (baseURL) => {
+  const instance = axios.create({
+    baseURL,
+  });
 
-api.interceptors.request.use(
-  async (config) => {
-    const accessToken = getAccessToken();
+  instance.interceptors.request.use(
+    async (config) => {
+      const accessToken = getAccessToken();
+      config.headers.Authorization = `Bearer ${accessToken}`;
+      return config;
+    },
+    (error) => Promise.reject(error),
+  );
 
-    config.headers.Authorization = `Bearer ${accessToken}`;
-
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  },
-);
-
-api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    if (error.response && error.response.status === 401 && getRefreshToken()) {
-      try {
-        const newAccessToken = await refreshToken();
-
-        const originalRequest = error.config;
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-
-        return api(originalRequest);
-      } catch (refreshError) {
-        return Promise.reject(refreshError);
+  instance.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      if (error.response && error.response.status === 401 && getRefreshToken()) {
+        try {
+          const newAccessToken = await refreshToken();
+          const originalRequest = error.config;
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          return instance(originalRequest);
+        } catch (refreshError) {
+          return Promise.reject(refreshError);
+        }
       }
-    }
-    return Promise.reject(error);
-  },
-);
+      return Promise.reject(error);
+    },
+  );
+
+  return instance;
+};
+
+export const api = createApiInstance(links.BASE_URL);
