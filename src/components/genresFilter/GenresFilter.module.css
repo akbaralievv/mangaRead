@@ -58,7 +58,7 @@
 }
 .content .genres > label input[type=checkbox] {
   position: absolute;
-  opacity: 0;
+  opacity: 0 !important;
 }
 .content .genres > label span {
   height: 35px;
@@ -98,7 +98,7 @@
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
-  opacity: 0;
+  opacity: 0 !important;
 }
 .content .genres > label input[type=checkbox]:checked + span::after {
   opacity: 1;

@@ -10,8 +10,10 @@ import arrow from '../../assets/icons/arrowBack.svg';
 import { getComment } from '../../redux/slices/GetCommentSLice';
 import CommentModal from '../../components/commentModal/CommentModal';
 import Pagination from '../../components/pagination/Pagination';
+import LoginModal from '../../components/loginModal/LoginModal';
 
 function InfoPage() {
+  const { open } = useSelector((state) => state.openModalSlice);
   const { data } = useSelector((state) => state.InfoMangaSlice);
   const { data: genre } = useSelector((state) => state.GenreSlice);
   const { data: comments } = useSelector((state) => state.GetCommentSLice);
@@ -52,6 +54,7 @@ function InfoPage() {
   return (
     <main className={style.wrapper}>
       <div className={style.container}>
+        {open && <LoginModal />}
         {openModal && <CommentModal id={data.id} setOpenModal={setOpenModal} />}
         <Link to={'/'}>
           <img src={arrow} alt="arrow" /> Назад
