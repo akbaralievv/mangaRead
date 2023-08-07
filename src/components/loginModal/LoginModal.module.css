@@ -1,4 +1,24 @@
 .wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background-color: rgba(182, 182, 182, 0.6431372549);
+  opacity: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.inner {
   width: 603px;
   border-radius: 30px;
   display: -webkit-box;
@@ -13,10 +33,10 @@
   background-color: #fff;
   padding-top: 31px;
 }
-.wrapper .content {
+.inner .content {
   padding-bottom: 50px;
 }
-.wrapper .close {
+.inner .close {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -24,9 +44,21 @@
       -ms-flex-pack: end;
           justify-content: end;
 }
-.wrapper .nav {
+.inner nav {
+  position: relative;
+  height: 37px;
   margin-bottom: 43px;
   margin-top: 12.79px;
+}
+.inner nav hr {
+  border: none;
+  border: 1px solid #878787;
+  position: absolute;
+  width: 100%;
+  top: 31.9px;
+  z-index: 1;
+}
+.inner .nav {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -35,9 +67,9 @@
       -ms-flex-align: center;
           align-items: center;
   width: 499px;
-  border-bottom: 2px solid #878787;
 }
-.wrapper .nav > a {
+.inner .nav > a {
+  z-index: 2;
   color: #000;
   font-family: Montserrat;
   font-size: 24px;
@@ -55,7 +87,7 @@
   position: relative;
   overflow: hidden;
 }
-.wrapper .nav .activeAuth:before {
+.inner .nav .activeAuth:before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -67,7 +99,7 @@
   background-color: #AD02E0;
   border-radius: 2px;
 }
-.wrapper .nav .activeReg:before {
+.inner .nav .activeReg:before {
   content: "";
   position: absolute;
   bottom: 0;

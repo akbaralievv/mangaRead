@@ -4,10 +4,13 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
   gap: 20px;
+}
+.wrapper a {
+  text-decoration: none;
+  display: inline-block;
+  width: 190px;
+  height: 220px;
 }
 .wrapper .card {
   width: 190px;

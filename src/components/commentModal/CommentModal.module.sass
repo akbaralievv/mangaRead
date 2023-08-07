@@ -1,0 +1,66 @@
+.wrapper
+    position: fixed
+    width: 100%
+    height: 100vh
+    top: 0
+    left: 0
+    z-index: 2
+    background-color: #b6b6b6a4
+    opacity: 1
+    display: flex
+    justify-content: center
+    align-items: center
+    .inner
+        background: #FFF
+        width: 780px
+        height: 302px
+        border-radius: 32px
+        display: flex
+        justify-content: center
+        align-items: center
+        padding: 37px 60px
+        .content
+            display: flex
+            flex-direction: column
+            gap: 53px
+            .title
+                display: flex
+                gap: 52px
+                &>h3
+                    color: #000
+                    font-family: Montserrat
+                    font-size: 35px
+                    font-style: normal
+                    font-weight: 400
+                &>div
+                    width: 100px
+                    height: 100px
+                    &>img
+                        width: 100%
+                        height: 100%
+                        border-radius: 50%
+                        background-color: #999999
+            &>form
+                display: flex
+                align-items: center
+                input
+                    width: 500px
+                    height: 52px
+                    padding-left: 10px
+                    padding-right: 10px
+                    border-radius: 8px 0px 0px 8px
+                    border: 1px solid #000
+                    &::placeholder
+                        color: #878787
+                        font-family: Montserrat
+                        font-size: 18px
+                        font-style: normal
+                        font-weight: 400
+                button
+                    display: inline-block
+                    padding: 16px 32px
+                    border: none
+                    color: white
+                    border-radius: 0px 8px 8px 0px
+                    background: #AD02E0
+                    height: 52px

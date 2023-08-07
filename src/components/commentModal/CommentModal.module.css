@@ -1,0 +1,128 @@
+.wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background-color: rgba(182, 182, 182, 0.6431372549);
+  opacity: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.wrapper .inner {
+  background: #FFF;
+  width: 780px;
+  height: 302px;
+  border-radius: 32px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 37px 60px;
+}
+.wrapper .inner .content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 53px;
+}
+.wrapper .inner .content .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 52px;
+}
+.wrapper .inner .content .title > h3 {
+  color: #000;
+  font-family: Montserrat;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+}
+.wrapper .inner .content .title > div {
+  width: 100px;
+  height: 100px;
+}
+.wrapper .inner .content .title > div > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #999999;
+}
+.wrapper .inner .content > form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.wrapper .inner .content > form input {
+  width: 500px;
+  height: 52px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 8px 0px 0px 8px;
+  border: 1px solid #000;
+}
+.wrapper .inner .content > form input::-webkit-input-placeholder {
+  color: #878787;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+}
+.wrapper .inner .content > form input::-moz-placeholder {
+  color: #878787;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+}
+.wrapper .inner .content > form input:-ms-input-placeholder {
+  color: #878787;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+}
+.wrapper .inner .content > form input::-ms-input-placeholder {
+  color: #878787;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+}
+.wrapper .inner .content > form input::placeholder {
+  color: #878787;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+}
+.wrapper .inner .content > form button {
+  display: inline-block;
+  padding: 16px 32px;
+  border: none;
+  color: white;
+  border-radius: 0px 8px 8px 0px;
+  background: #AD02E0;
+  height: 52px;
+}

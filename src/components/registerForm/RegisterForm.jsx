@@ -1,35 +1,71 @@
 import { useState } from 'react';
 import style from './RegisterForm.module.css';
+import { postSignUp } from '../../redux/slices/SignUpSlice';
+import { useDispatch } from 'react-redux';
 
 function RegisterForm() {
-  const [value, setValue] = useState('');
+  const [formData, setFormData] = useState({
+    username: '',
+    nickname: '',
+    image_file: null,
+    password: '',
+  });
+
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setValue(reader.result);
-      };
-      reader.readAsDataURL(file);
+    const { name, value, type, files } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'file' ? files[0] : value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    for (const key in formData) {
+      data.append(key, formData[key]);
     }
+    dispatch(postSignUp(data));
   };
 
   return (
-    <form className={style.form}>
+    <form className={style.form} onSubmit={handleSubmit}>
       <label>
-        <img src={value} alt="photo" className={!value ? style.notPhoto : ''} />
-        <input
-          type="file"
-          placeholder="Username"
-          onChange={handleChange}
-          style={{ display: 'none' }}
+        <img
+          src={formData.image_file && URL.createObjectURL(formData.image_file)}
+          alt=""
+          className={!formData.image_file ? style.notPhoto : ''}
         />
+        <input type="file" onChange={handleChange} name="image_file" style={{ display: 'none' }} />
         выбрать
       </label>
-      <input type="text" placeholder="username" />
-      <input type="text" placeholder="nickname" />
-      <input type="text" placeholder="password" />
-      <button>регистрация</button>
+      <input
+        type="text"
+        placeholder="username"
+        name="username"
+        minLength={10}
+        maxLength={50}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        placeholder="nickname"
+        name="nickname"
+        minLength={10}
+        maxLength={60}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        placeholder="password"
+        name="password"
+        minLength={8}
+        maxLength={40}
+        onChange={handleChange}
+      />
+      <button type="submit">регистрация</button>
     </form>
   );
 }
