@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { getInfoManga } from '../../redux/slices/InfoMangaSlice';
 import { getGenre } from '../../redux/slices/GenreSlice';
-import { getComment } from '../../redux/slices/GetCommentSLice';
+import { getComment } from '../../redux/slices/GetCommentSlice';
 import { getUsername } from '../../helpers/token';
 import { setOpen, setVisible } from '../../redux/slices/openModalSlice';
 
@@ -23,7 +23,7 @@ function InfoPage() {
   const { data } = useSelector((state) => state.InfoMangaSlice);
   const { data: genre } = useSelector((state) => state.GenreSlice);
   const { data: comments, success: addCommentSuccess } = useSelector(
-    (state) => state.GetCommentSLice,
+    (state) => state.GetCommentSlice,
   );
 
   const [page, setPage] = useState({
