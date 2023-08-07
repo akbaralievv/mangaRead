@@ -7,7 +7,8 @@ import { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 function CommentModal({ id, setOpenModal }) {
-  const username = getUsername();
+  const user = getUsername() || '';
+  const username = JSON.parse(user);
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
   const hanldeChange = (e) => {
@@ -50,9 +51,9 @@ function CommentModal({ id, setOpenModal }) {
         <div className={style.content}>
           <div className={style.title}>
             <div>
-              <img src="" alt="" />
+              <img src={username.image_file} alt="" />
             </div>
-            <h3>{username}</h3>
+            <h3>{username.username}</h3>
           </div>
           <form onSubmit={hanldeSubmit}>
             <input type="text" placeholder="Добавьте комментарий" onChange={hanldeChange} />

@@ -11,6 +11,8 @@ import { getComment } from '../../redux/slices/GetCommentSLice';
 import CommentModal from '../../components/commentModal/CommentModal';
 import Pagination from '../../components/pagination/Pagination';
 import LoginModal from '../../components/loginModal/LoginModal';
+import { getUsername } from '../../helpers/token';
+import { setOpen } from '../../redux/slices/openModalSlice';
 
 function InfoPage() {
   const { open } = useSelector((state) => state.openModalSlice);
@@ -36,8 +38,15 @@ function InfoPage() {
   }, [dispatch, addComment, id]);
 
   const handleOpenModal = () => {
-    document.body.style.overflow = 'hidden';
-    setOpenModal(true);
+    const user = getUsername() || '{}';
+    const username = JSON.parse(user);
+    if (username.username) {
+      setOpenModal(true);
+      document.body.style.overflow = 'hidden';
+      dispatch(setOpen(false));
+    } else {
+      dispatch(setOpen(true));
+    }
   };
 
   const handleChangePaginate = (event, page) => {
